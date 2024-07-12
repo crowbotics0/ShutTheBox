@@ -7,15 +7,23 @@ game_active = True
 total_flips = 0
 
 def check_addition_possibilities(dice_total):
+     add_three_nums = False
      if dice_total <= 9 and flip_status_list[int(dice_total) - 1] == False:
           return True  
      else:
           for i in viable_numbers:
                for j in viable_numbers:
-                    print(str(i) + " + " + str(j) + " = " + str(i+j) + ", actual: " + str(dice_total))
+                    #print(str(i) + " + " + str(j) + " = " + str(i+j) + ", actual: " + str(dice_total))
                     if i + j == dice_total and i != j:
-                         print("possible")
                          return True
+                    
+          for i in viable_numbers:
+               for j in viable_numbers:
+                     for k in viable_numbers:
+                              #print(str(i) + " + " + str(j) + " + " + str(k) + " = " + str(i+j+k) + ", actual: " + str(dice_total))
+                              if i + j + k == dice_total and i != j and i != k and j != k:
+                                   return True
+                        
      return False
                
 def is_move_valid(input, dice_total):
@@ -70,7 +78,10 @@ while len(viable_numbers) > 0:
                if total != 0:
                     print("Please flip another number")
     else:
-         print("addition not possible")
+         sum = 0
+         for n in viable_numbers:
+              sum = sum + n
+         print("No more moves possible! Your Score: " + str(sum))
          break
 
     game_active = False
