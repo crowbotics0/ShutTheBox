@@ -5,6 +5,7 @@ viable_numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 flip_status_list = [False, False, False, False, False, False, False, False, False]
 game_active = True
 total_flips = 0
+roll_one_die = False
 
 def check_addition_possibilities(dice_total):
      add_three_nums = False
@@ -17,12 +18,13 @@ def check_addition_possibilities(dice_total):
                     if i + j == dice_total and i != j:
                          return True
                     
-          for i in viable_numbers:
-               for j in viable_numbers:
-                     for k in viable_numbers:
-                              #print(str(i) + " + " + str(j) + " + " + str(k) + " = " + str(i+j+k) + ", actual: " + str(dice_total))
-                              if i + j + k == dice_total and i != j and i != k and j != k:
-                                   return True
+          if len(viable_numbers) > 2:
+               for i in viable_numbers:
+                    for j in viable_numbers:
+                         for k in viable_numbers:
+                                   #print(str(i) + " + " + str(j) + " + " + str(k) + " = " + str(i+j+k) + ", actual: " + str(dice_total))
+                                   if i + j + k == dice_total and i != j and i != k and j != k:
+                                        return True
                         
      return False
                
@@ -53,6 +55,7 @@ def check_for_input(dice_total, total_flips):
      return dice_total
 
 while len(viable_numbers) > 0:
+    roll_one_die = False
     print("~~ Current Box ~~")
 
     for num in range(9):
@@ -66,8 +69,22 @@ while len(viable_numbers) > 0:
     dice2 = Dice.roll()
     total = dice1 + dice2
 
+    if 7 not in viable_numbers and 8 not in viable_numbers and 9 not in viable_numbers:
+         print("How many die do you want to roll?")
+         chosen_dice = input()
+         while chosen_dice != "1" and chosen_dice != "2":
+              chosen_dice = input()
+
+         match chosen_dice:
+              case "1":
+                   roll_one_die = True
+              case "2":
+                   roll_one_die = False
+
+         
     print("First dice is " + str(dice1))
-    print("Second dice is " + str(dice2))
+    if not roll_one_die:
+          print("Second dice is " + str(dice2))
     print("Total is " + str(total))
 
     print("~~ Choose Number to Flip ~~")
@@ -84,6 +101,7 @@ while len(viable_numbers) > 0:
          print("No more moves possible! Your Score: " + str(sum))
          break
 
-    game_active = False
+if len(viable_numbers) == 0:
+     print("You Shut the Box!")
 
 
