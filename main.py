@@ -1,5 +1,5 @@
 
-import Dice
+import dice
 
 viable_numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 flip_status_list = [False, False, False, False, False, False, False, False, False]
@@ -64,9 +64,9 @@ while len(viable_numbers) > 0:
             else:
                 print("_", end=" ")
 
-    print("\n~~ Your Dice Roll ~~")
-    dice1 = Dice.roll()
-    dice2 = Dice.roll()
+    print("\n~~ Your dice Roll ~~")
+    dice1 = dice.roll()
+    dice2 = dice.roll()
     total = dice1 + dice2
 
     if 7 not in viable_numbers and 8 not in viable_numbers and 9 not in viable_numbers:
